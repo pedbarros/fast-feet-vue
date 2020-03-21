@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: "/manage",
-    component: () => import("@/layouts/Manage.vue"),
+    component: () => import("@/layouts/Manage"),
     children: [
       {
         path: "assignments",
@@ -19,7 +19,8 @@ const routes = [
         component: () => import("@/views/Assignments")
       }
     ]
-  }
+  },
+  { path: "*", redirect: "/login" }
 ];
 
 const router = new VueRouter({

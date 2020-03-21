@@ -1,13 +1,13 @@
 <template>
   <div
-    class="login vw-100 vh-100 d-flex justify-content-center align-content-center"
+    class="bg-primary vw-100 vh-100 d-flex justify-content-center align-content-center"
   >
     <div class="card login-card align-self-center p-4">
       <b-img-lazy class="my-3" fluid src="@/assets/images/logo-login.png" />
 
       <b-form @submit="onLogin">
         <b-form-group
-          class="login-card-input-group font-weight-bold"
+          class="text-secondary font-weight-bold"
           label="SEU E-MAIL"
           label-for="input-email"
         >
@@ -21,7 +21,7 @@
         </b-form-group>
 
         <b-form-group
-          class="login-card-input-group font-weight-bold"
+          class="text-secondary font-weight-bold"
           label="SUA SENHA"
           label-for="input-password"
         >
@@ -34,7 +34,9 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button block class="login-card-btn p-2">Entrar no sistema</b-button>
+        <b-button block variant="primary" class="p-2 mt-4" @click="onLogin()"
+          >Entrar no sistema</b-button
+        >
       </b-form>
     </div>
   </div>
@@ -53,29 +55,17 @@ export default {
   },
   methods: {
     onLogin() {
-      // console.log("ok");
+      this.$router.push({ name: "Assignments" });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-$color-default: #7d40e7;
-.login {
-  background: $color-default;
-  .login-card {
-    width: 360px;
-    height: 425px;
-    box-shadow: 0px 0px 10px #00000033;
-    border-radius: 4px;
-
-    .login-card-input-group {
-      color: #444444;
-    }
-
-    .login-card-btn {
-      background: $color-default;
-    }
-  }
+.login-card {
+  width: 360px;
+  height: 425px;
+  box-shadow: 0px 0px 10px #00000033;
+  border-radius: 4px;
 }
 </style>

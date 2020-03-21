@@ -1,11 +1,12 @@
 <template>
   <section class="d-flex flex-column">
     <h4>Gerenciando encomendas</h4>
+
     <div class="d-flex justify-content-between my-4">
       <div>
         <b-form-input placeholder="Buscar por encomendas"></b-form-input>
       </div>
-      <b-button class="btn-save" variant="primary">
+      <b-button variant="primary">
         <b-icon-plus></b-icon-plus>
         CADASTRAR
       </b-button>
@@ -20,13 +21,14 @@
         fixed
       >
         <template v-slot:cell(status)="data">
-          <b-badge pill :variant="badgeVariant(data.item.status)">{{
-            data.item.status
-          }}</b-badge>
+          <b-badge pill :variant="badgeVariant(data.item.status)">
+            <b-icon-circle-fill></b-icon-circle-fill>
+            {{ data.item.status }}</b-badge
+          >
         </template>
         <template v-slot:cell(acoes)>
-          <b-dropdown id="dropdown-1">
-            <b-dropdown-item
+          <b-dropdown id="dropdown-1" variant="primary">
+            <b-dropdown-item v-b-modal.show-assignments-modal
               ><b-icon-plus></b-icon-plus>Visualizar</b-dropdown-item
             >
             <b-dropdown-item>
@@ -39,12 +41,16 @@
         </template>
       </b-table>
     </div>
+    <show-assignments-modal />
   </section>
 </template>
 
 <script>
 export default {
   name: "Assignments",
+  components: {
+    ShowAssignmentsModal: () => import("./components/ShowAssignmentsModal")
+  },
   data() {
     return {
       fields: [
@@ -97,16 +103,7 @@ export default {
       if (status === "ENTREGUE") return "success";
       else if (status === "RETIRADA") return "info";
       else if (status === "CANCELADA") return "danger";
-    },
-    onLogin() {
-      // console.log("ok");
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.btn-save {
-  background: #7d40e7;
-}
-</style>
