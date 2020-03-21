@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     onLogin() {
-      console.log("ok");
+      // console.log("ok");
     }
   }
 };

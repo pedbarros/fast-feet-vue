@@ -99,7 +99,7 @@ export default {
       else if (status === "CANCELADA") return "danger";
     },
     onLogin() {
-      console.log("ok");
+      // console.log("ok");
     }
   }
 };
