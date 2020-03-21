@@ -18,10 +18,10 @@ export default {
   computed: {
     menu() {
       return [
-        { title: "ENCOMENDAS", href: "#" },
-        { title: "ENTREGADORES", href: "#" },
-        { title: "DESTINATÁRIOS", href: "#" },
-        { title: "PROBLEMAS", href: "#" }
+        { title: "ENCOMENDAS", to: { name: "Assignments" } },
+        { title: "ENTREGADORES", to: "#" },
+        { title: "DESTINATÁRIOS", to: "#" },
+        { title: "PROBLEMAS", to: { name: "Problems" } }
       ];
     }
   },

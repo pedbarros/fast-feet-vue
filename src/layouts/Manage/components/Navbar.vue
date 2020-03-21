@@ -14,12 +14,9 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item v-for="(m, index) in menu" :key="index" :href="m.href">{{
+          <b-nav-item v-for="(m, index) in menu" :key="index" :to="m.to">{{
             m.title
           }}</b-nav-item>
-          <!-- <b-nav-item href="#">ENTREGADORES</b-nav-item>
-          <b-nav-item href="#">DESTINATÁRIOS</b-nav-item>
-          <b-nav-item href="#">PROBLEMAS</b-nav-item> -->
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
