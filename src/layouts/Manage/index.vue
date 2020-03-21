@@ -19,7 +19,7 @@ export default {
     menu() {
       return [
         { title: "ENCOMENDAS", to: { name: "Assignments" } },
-        { title: "ENTREGADORES", to: { name: "Deliverers" } },
+        { title: "ENTREGADORES", to: { name: "ListDeliverers" } },
         { title: "DESTINATÁRIOS", to: { name: "Recipients" } },
         { title: "PROBLEMAS", to: { name: "Problems" } }
       ];

@@ -26,7 +26,19 @@ const routes = [
       {
         path: "deliverers",
         name: "Deliverers",
-        component: () => import("@/views/Deliverers")
+        component: () => import("@/views/EmptyRouterView.vue"),
+        children: [
+          {
+            path: "",
+            name: "ListDeliverers",
+            component: () => import("@/views/Deliverers")
+          },
+          {
+            path: "register",
+            name: "RegisterDelivery",
+            component: () => import("@/views/Deliverers/Register")
+          }
+        ]
       },
       {
         path: "recipients",

@@ -7,7 +7,7 @@
 
       <b-form @submit="onLogin">
         <b-form-group
-          class="text-secondary font-weight-bold"
+          class="text-dark font-weight-bold"
           label="SEU E-MAIL"
           label-for="input-email"
         >
@@ -21,7 +21,7 @@
         </b-form-group>
 
         <b-form-group
-          class="text-secondary font-weight-bold"
+          class="text-dark font-weight-bold"
           label="SUA SENHA"
           label-for="input-password"
         >
