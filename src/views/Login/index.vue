@@ -1,8 +1,8 @@
 <template>
   <div
-    class="bg-primary vw-100 vh-100 d-flex justify-content-center align-content-center"
+    class="bg-primary p-3 vw-100 vh-100 d-flex justify-content-center align-content-center"
   >
-    <div class="card login-card align-self-center p-4">
+    <div class="card login-card align-self-center p-3 p-sm-4">
       <b-img-lazy class="my-3" fluid src="@/assets/images/logo-login.png" />
 
       <b-form @submit="onLogin">

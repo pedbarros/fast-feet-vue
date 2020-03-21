@@ -33,6 +33,8 @@ $danger: $red !default;
 $light: $gray-100 !default;
 $dark: $gray-800 !default;
 
+$enable-responsive-font-sizes: true;
+
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (

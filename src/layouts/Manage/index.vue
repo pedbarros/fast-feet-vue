@@ -4,7 +4,7 @@
       :logo="require('@/assets/images/logo-login.png').default"
       :menu="menu"
     />
-    <div class="p-5">
+    <div class="p-3 p-sm-5">
       <router-view />
     </div>
   </section>
@@ -19,8 +19,8 @@ export default {
     menu() {
       return [
         { title: "ENCOMENDAS", to: { name: "Assignments" } },
-        { title: "ENTREGADORES", to: "#" },
-        { title: "DESTINATÁRIOS", to: "#" },
+        { title: "ENTREGADORES", to: { name: "Deliverers" } },
+        { title: "DESTINATÁRIOS", to: { name: "Recipients" } },
         { title: "PROBLEMAS", to: { name: "Problems" } }
       ];
     }

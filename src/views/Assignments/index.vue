@@ -19,6 +19,15 @@
 
     <div>
       <b-table :responsive="true" :hover="true" :fields="fields" :items="items">
+        <template v-slot:cell(entregador)="data">
+          <b-img
+            rounded="circle"
+            width="35"
+            height="35"
+            :src="`https://ui-avatars.com/api/?name=${data.item.entregador}`"
+          ></b-img>
+          {{ data.item.entregador }}
+        </template>
         <template v-slot:cell(status)="data">
           <b-badge pill :variant="badgeVariant(data.item.status)">
             <b-icon-circle-fill></b-icon-circle-fill>
