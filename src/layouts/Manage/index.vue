@@ -20,7 +20,7 @@ export default {
       return [
         { title: "ENCOMENDAS", to: { name: "Assignments" } },
         { title: "ENTREGADORES", to: { name: "ListDeliverers" } },
-        { title: "DESTINATÁRIOS", to: { name: "Recipients" } },
+        { title: "DESTINATÁRIOS", to: { name: "ListRecipients" } },
         { title: "PROBLEMAS", to: { name: "Problems" } }
       ];
     }

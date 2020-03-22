@@ -43,7 +43,19 @@ const routes = [
       {
         path: "recipients",
         name: "Recipients",
-        component: () => import("@/views/Recipients")
+        component: () => import("@/views/EmptyRouterView.vue"),
+        children: [
+          {
+            path: "",
+            name: "ListRecipients",
+            component: () => import("@/views/Recipients")
+          },
+          {
+            path: "register",
+            name: "RegisterRecipient",
+            component: () => import("@/views/Recipients/Register")
+          }
+        ]
       }
     ]
   },
@@ -51,7 +63,6 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  // mode: "history",
   base: process.env.BASE_URL,
   routes
 });

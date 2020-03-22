@@ -11,7 +11,11 @@
           <b-form-input placeholder="Buscar por entregadores"></b-form-input>
         </b-input-group>
       </div>
-      <b-button class="mt-3 mt-sm-0" variant="primary">
+      <b-button
+        class="mt-3 mt-sm-0"
+        variant="primary"
+        @click="$router.push({ name: 'RegisterRecipient' })"
+      >
         <b-icon-plus></b-icon-plus>
         CADASTRAR
       </b-button>
