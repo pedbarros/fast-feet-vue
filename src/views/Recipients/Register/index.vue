@@ -35,7 +35,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <div class="d-flex">
+        <div class="d-flex flex-column flex-lg-row">
           <b-form-group
             class="text-dark font-weight-bold flex-grow-1 mr-2"
             label="Rua"
@@ -74,7 +74,7 @@
           </b-form-group>
         </div>
 
-        <div class="d-flex">
+        <div class="d-flex flex-column flex-lg-row">
           <b-form-group
             class="text-dark font-weight-bold flex-grow-1 mr-2"
             label="Cidade"
@@ -163,10 +163,12 @@ export default {
 <style lang="scss" scoped>
 .delivery-container {
   width: 65%;
-  height: 401px;
+  // height: 401px;
+  margin: 0 auto;
 
   @media (max-width: 604px) {
     width: 90%;
+    height: 100%;
   }
   .image-upload {
     width: 150px;
@@ -174,7 +176,6 @@ export default {
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px dashed #dddddd;
   }
-  margin: 0 auto;
   .register-card {
     border-radius: 4px;
   }

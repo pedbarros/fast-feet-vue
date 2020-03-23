@@ -1,5 +1,5 @@
 <template>
-  <section class="vw-100 vh-100 d-flex flex-column flex-fill">
+  <section class="d-flex flex-column h-100">
     <navbar
       :logo="require('@/assets/images/logo-login.png').default"
       :menu="menu"
