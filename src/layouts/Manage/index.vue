@@ -4,7 +4,7 @@
       :logo="require('@/assets/images/logo-login.png').default"
       :menu="menu"
     />
-    <div class="p-3 p-sm-5">
+    <div class="manager-container p-3 p-sm-5">
       <router-view />
     </div>
   </section>
@@ -30,3 +30,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.manager-container {
+  margin-top: 70px;
+}
+</style>

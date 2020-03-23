@@ -3,6 +3,7 @@
     <b-navbar
       toggleable="lg"
       class="bg-white"
+      fixed="top"
       v-bind="$attrs"
       v-on="$listeners"
     >
@@ -24,7 +25,9 @@
             <template v-slot:button-content>
               <em>Admin FastFeet</em>
             </template>
-            <b-dropdown-item href="#">Sair do sistema</b-dropdown-item>
+            <b-dropdown-item :to="{ name: 'Login' }"
+              >Sair do sistema</b-dropdown-item
+            >
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
