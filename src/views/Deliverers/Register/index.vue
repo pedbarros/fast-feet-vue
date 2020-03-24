@@ -9,7 +9,7 @@
           <b-icon-plus></b-icon-plus>
           VOLTAR
         </b-button>
-        <b-button class="mt-3 mt-sm-0" variant="primary">
+        <b-button class="mt-3 mt-sm-0" variant="primary" @click="saveDelivery">
           <b-icon-plus></b-icon-plus>
           SALVAR
         </b-button>
@@ -23,9 +23,13 @@
             class="image-upload d-flex flex-column justify-content-center rounded-circle"
             @click="$refs.file.click()"
           >
-            <template v-if="form.imageBase64">
+            <template v-if="form.image">
               <img
-                :src="`data:image/jpeg;base64,${form.imageBase64}`"
+                :src="
+                  imageIsBase64
+                    ? `data:image/jpeg;base64,${form.image}`
+                    : form.image
+                "
                 style="border-radius:10px;"
               />
             </template>
@@ -72,7 +76,7 @@
             v-model="form.email"
             type="email"
             required
-            placeholder="*************"
+            placeholder="meumelhoremail@email.com"
           ></b-form-input>
         </b-form-group>
       </b-form>
@@ -88,9 +92,15 @@ export default {
       form: {
         nome: null,
         email: null,
-        imageBase64: null
+        image: null
       }
     };
+  },
+  computed: {
+    imageIsBase64() {
+      let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+      return base64regex.test(this.form.image);
+    }
   },
   methods: {
     onImageChange(e) {
@@ -100,12 +110,18 @@ export default {
       reader.readAsBinaryString(image[0]);
 
       reader.onload = function() {
-        self.form.imageBase64 = btoa(reader.result);
+        self.form.image = btoa(reader.result);
       };
       reader.onerror = function() {
-        self.form.imageBase64 = null;
+        self.form.image = null;
       };
+    },
+    saveDelivery() {
+      alert(JSON.stringify(this.form));
     }
+  },
+  mounted() {
+    this.form = { ...this.$route.params.data };
   }
 };
 </script>
@@ -123,6 +139,7 @@ export default {
     height: 150px;
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px dashed #dddddd;
+    cursor: pointer;
   }
   margin: 0 auto;
   .register-card {

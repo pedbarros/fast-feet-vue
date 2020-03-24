@@ -7,7 +7,7 @@
       v-bind="$attrs"
       v-on="$listeners"
     >
-      <b-navbar-brand href="#">
+      <b-navbar-brand :to="{ name: 'ListAssignments' }">
         <b-img-lazy fluid :src="logo" width="135" height="26" />
       </b-navbar-brand>
 

@@ -16,7 +16,19 @@ const routes = [
       {
         path: "assignments",
         name: "Assignments",
-        component: () => import("@/views/Assignments")
+        component: () => import("@/views/EmptyRouterView.vue"),
+        children: [
+          {
+            path: "",
+            name: "ListAssignments",
+            component: () => import("@/views/Assignments/List")
+          },
+          {
+            path: "register",
+            name: "RegisterAssignment",
+            component: () => import("@/views/Assignments/Register")
+          }
+        ]
       },
       {
         path: "problems",

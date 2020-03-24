@@ -154,7 +154,7 @@ export default {
   },
   methods: {
     saveRecipient() {
-      // console.log(this.form);
+      alert(JSON.stringify(this.form));
     }
   }
 };

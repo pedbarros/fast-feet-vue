@@ -18,15 +18,12 @@ export default {
   computed: {
     menu() {
       return [
-        { title: "ENCOMENDAS", to: { name: "Assignments" } },
+        { title: "ENCOMENDAS", to: { name: "ListAssignments" } },
         { title: "ENTREGADORES", to: { name: "ListDeliverers" } },
         { title: "DESTINATÁRIOS", to: { name: "ListRecipients" } },
         { title: "PROBLEMAS", to: { name: "Problems" } }
       ];
     }
-  },
-  mounted() {
-    // console.log("entrei");
   }
 };
 </script>

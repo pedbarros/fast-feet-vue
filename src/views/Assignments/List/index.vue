@@ -11,7 +11,11 @@
           <b-form-input placeholder="Buscar por encomendas"></b-form-input>
         </b-input-group>
       </div>
-      <b-button class="mt-3 mt-sm-0" variant="primary">
+      <b-button
+        class="mt-3 mt-sm-0"
+        variant="primary"
+        @click="$router.push({ name: 'RegisterAssignment' })"
+      >
         <b-icon-plus></b-icon-plus>
         CADASTRAR
       </b-button>
@@ -34,12 +38,19 @@
             {{ data.item.status }}</b-badge
           >
         </template>
-        <template v-slot:cell(acoes)>
+        <template v-slot:cell(acoes)="data">
           <b-dropdown id="dropdown-1" variant="primary">
             <b-dropdown-item v-b-modal.show-assignments-modal
               ><b-icon-eye></b-icon-eye> Visualizar</b-dropdown-item
             >
-            <b-dropdown-item>
+            <b-dropdown-item
+              @click="
+                $router.push({
+                  name: 'RegisterAssignment',
+                  params: { data: data.item }
+                })
+              "
+            >
               <b-icon-pencil></b-icon-pencil> Editar</b-dropdown-item
             >
             <b-dropdown-item
