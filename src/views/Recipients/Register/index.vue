@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { CepService } from "@/services";
+import { cepService } from "@/services";
 export default {
   name: "RegisterRecipient",
   data() {
@@ -140,7 +140,7 @@ export default {
   watch: {
     "form.cep": {
       handler(value) {
-        CepService.getLocation(value).then(res => {
+        cepService.getLocation(value).then(res => {
           const response = res.data;
           this.form.rua = response.logradouro;
           this.form.complemento = response.complemento;

@@ -1,3 +1,3 @@
-import CepService from "./CepService";
+import cepService from "./cep";
 
-export { CepService };
+export { cepService };
