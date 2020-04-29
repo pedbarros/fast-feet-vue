@@ -11,20 +11,23 @@ const routes = [
   },
   {
     path: "/manage",
+    name: "Manage",
+    redirect: { name: "Assignments" },
     component: () => import("@/layouts/Manage"),
     children: [
       {
         path: "assignments",
         name: "Assignments",
+        redirect: { name: "ListAssignments" },
         component: () => import("@/views/EmptyRouterView.vue"),
         children: [
           {
-            path: "",
+            path: "/",
             name: "ListAssignments",
             component: () => import("@/views/Assignments/List")
           },
           {
-            path: "register",
+            path: "/register",
             name: "RegisterAssignment",
             component: () => import("@/views/Assignments/Register")
           }
@@ -38,15 +41,16 @@ const routes = [
       {
         path: "deliverers",
         name: "Deliverers",
+        redirect: { name: "ListDeliverers" },
         component: () => import("@/views/EmptyRouterView.vue"),
         children: [
           {
-            path: "",
+            path: "/",
             name: "ListDeliverers",
             component: () => import("@/views/Deliverers")
           },
           {
-            path: "register",
+            path: "/register",
             name: "RegisterDelivery",
             component: () => import("@/views/Deliverers/Register")
           }
@@ -55,15 +59,16 @@ const routes = [
       {
         path: "recipients",
         name: "Recipients",
+        redirect: { name: "Recipients" },
         component: () => import("@/views/EmptyRouterView.vue"),
         children: [
           {
-            path: "",
+            path: "/",
             name: "ListRecipients",
             component: () => import("@/views/Recipients")
           },
           {
-            path: "register",
+            path: "/register",
             name: "RegisterRecipient",
             component: () => import("@/views/Recipients/Register")
           }

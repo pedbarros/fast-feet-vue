@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     onLogin() {
-      this.$router.push({ name: "Assignments" });
+      this.$router.push({ name: "ListAssignments" });
     }
   }
 };

@@ -93,9 +93,6 @@ export default {
     saveAssignment() {
       alert(JSON.stringify(this.form));
     }
-  },
-  mounted() {
-    console.log(this.$route);
   }
 };
 </script>

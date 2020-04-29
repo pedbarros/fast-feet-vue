@@ -70,25 +70,25 @@ export default {
           id: "#01",
           image: "https://ui-avatars.com/api/?name=John Doe",
           nome: "John Doe",
-          email: "example@rocketseat.com"
+          email: "example@pedbarros.com.br"
         },
         {
           id: "#02",
           image: "https://ui-avatars.com/api/?name=Pedro Barros",
           nome: "Pedro Barros",
-          email: "example@rocketseat.com"
+          email: "example@pedbarros.com.br"
         },
         {
           id: "#03",
           image: "https://ui-avatars.com/api/?name=Camila Soares",
           nome: "Camila Soares",
-          email: "example@rocketseat.com"
+          email: "example@pedbarros.com.br"
         },
         {
           id: "#04",
           image: "https://ui-avatars.com/api/?name=John Doe",
           nome: "John Doe",
-          email: "example@rocketseat.com"
+          email: "example@pedbarros.com.br"
         }
       ]
     };
