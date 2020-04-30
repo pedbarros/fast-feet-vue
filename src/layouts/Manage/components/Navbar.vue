@@ -21,11 +21,11 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
+          <!-- <b-nav-form>
             <b-badge variant="success" style="font-size: 15px">{{
               domainTarget
             }}</b-badge>
-          </b-nav-form>
+          </b-nav-form> -->
 
           <b-nav-item-dropdown right>
             <template v-slot:button-content>
@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import xml2js from "xml2js";
+// import axios from "axios";
+// import xml2js from "xml2js";
 export default {
   inheritAttrs: false,
   data() {
@@ -62,12 +62,12 @@ export default {
     }
   },
   mounted() {
-    axios("https://www.whoisxmlapi.com/whoisserver/DNSService", {
+    /*axios("https://www.whoisxmlapi.com/whoisserver/DNSService", {
       method: "GET",
       mode: "no-cors",
       params: {
         apiKey: "at_ZzUtyDJdMEt7BPqravqwgWYOtoD9S",
-        domainName: "fastfeet.pedbarros.com.br",
+        domainName: "members.pedbarros.com.br",
         type: "_all",
         output_format: "json"
       }
@@ -75,12 +75,12 @@ export default {
       xml2js.parseString(res.data, (err, result) => {
         const dns = result.DNSData.dnsRecords.filter(rec =>
           rec.CNAMERecord.some(sub_mod =>
-            sub_mod.target.includes("nifty-swirles-a5a790.netlify.com.")
+            sub_mod.target.includes("pedbarros.myedools.info.")
           )
         );
         this.domainTarget = dns[0].CNAMERecord[0].target[0];
       });
-    });
+    });*/
   }
 };
 </script>
