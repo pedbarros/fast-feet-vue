@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store";
+import { tokenHelper } from "@/helpers";
 
 store.dispatch("auth/me");
 Vue.use(VueRouter);
@@ -14,6 +15,7 @@ const routes = [
   {
     path: "/manage",
     name: "Manage",
+    meta: { requiresAuth: true },
     redirect: { name: "Assignments" },
     component: () => import("@/layouts/Manage"),
     children: [
@@ -86,8 +88,13 @@ const router = new VueRouter({
   routes
 });
 
-// router.beforeEach(async (to, from, next) => {
-
-// })
+router.beforeEach(async (to, from, next) => {
+  if (
+    to.matched.some(route => route.meta.requiresAuth) &&
+    !tokenHelper.getToken()
+  ) {
+    next({ name: "Login", query: { name: to.name }, params: to.params });
+  } else next();
+});
 
 export default router;

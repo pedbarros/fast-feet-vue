@@ -26,11 +26,15 @@
     </div>
 
     <div>
+      <div class="d-flex justify-content-center" v-if="isLoading">
+        <b-spinner variant="primary"></b-spinner>
+      </div>
       <b-table
         :responsive="true"
         :hover="true"
         :fields="fields"
         :items="recipients"
+        v-else
       >
         <template v-slot:cell(address)="data">
           <span
@@ -59,6 +63,7 @@ export default {
   name: "Recipients",
   data() {
     return {
+      isLoading: true,
       search: "",
       fields: [
         { key: "id", label: "ID" },
@@ -76,8 +81,10 @@ export default {
     }
   },
   async mounted() {
+    this.isLoading = true;
     const recipients = await recipientService.get();
     this.recipients = recipients;
+    this.isLoading = false;
   }
 };
 </script>

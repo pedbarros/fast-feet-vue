@@ -8,7 +8,7 @@
       v-on="$listeners"
     >
       <b-navbar-brand :to="{ name: 'ListAssignments' }">
-        <b-img-lazy fluid :src="logo" width="135" height="26" />
+        <b-img-lazy fluid :src="logo" width="40" height="40" />
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -53,7 +53,7 @@ export default {
   props: {
     logo: {
       type: String,
-      default: require("@/assets/images/logo-login.png")
+      default: require("@/assets/images/quick-delivery.png")
     },
     menu: {
       type: Array,

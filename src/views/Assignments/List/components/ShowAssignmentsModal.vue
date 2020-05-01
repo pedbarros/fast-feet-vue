@@ -2,10 +2,10 @@
   <b-modal id="show-assignments-modal">
     <div class="p-2">
       <h5>Informações da encomenda</h5>
-      <span class="d-block">Rua Beethoven, 1729</span>
-      <span class="d-block">Rua Beethoven, 1729</span>
-      <span class="d-block">Rua Beethoven, 1729</span>
-      <span class="d-block">Rua Beethoven, 1729</span>
+      <span class="d-block"
+        >{{ assignment.recipient.street }},
+        {{ assignment.recipient.state }}</span
+      >
 
       <hr />
 
@@ -27,3 +27,14 @@
     </div>
   </b-modal>
 </template>
+<script>
+export default {
+  name: "ShowAssignmentsModal",
+  props: {
+    assignment: {
+      type: Object,
+      required: true
+    }
+  }
+};
+</script>

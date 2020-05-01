@@ -22,7 +22,16 @@
     </div>
 
     <div>
-      <b-table :responsive="true" :hover="true" :fields="fields" :items="items">
+      <div class="d-flex justify-content-center" v-if="isLoading">
+        <b-spinner variant="primary"></b-spinner>
+      </div>
+      <b-table
+        :responsive="true"
+        :hover="true"
+        :fields="fields"
+        :items="assignments"
+        v-else
+      >
         <template v-slot:cell(entregador)="data">
           <b-img
             rounded="circle"
@@ -34,13 +43,21 @@
         </template>
         <template v-slot:cell(status)="data">
           <b-badge pill :variant="badgeVariant(data.item.status)">
-            <b-icon-circle-fill></b-icon-circle-fill>
-            {{ data.item.status }}</b-badge
-          >
+            <div class="d-flex align-items-center">
+              <b-icon-circle-fill></b-icon-circle-fill>
+              <span class="ml-1" style="font-size: 15px">{{
+                data.item.status | statusText
+              }}</span>
+            </div>
+          </b-badge>
         </template>
         <template v-slot:cell(acoes)="data">
           <b-dropdown id="dropdown-1" variant="primary">
-            <b-dropdown-item v-b-modal.show-assignments-modal
+            <b-dropdown-item
+              @click="
+                selectedAssignment = data.item;
+                $bvModal.show('show-assignments-modal');
+              "
               ><b-icon-eye></b-icon-eye> Visualizar</b-dropdown-item
             >
             <b-dropdown-item
@@ -60,11 +77,15 @@
         </template>
       </b-table>
     </div>
-    <show-assignments-modal />
+    <show-assignments-modal
+      v-if="selectedAssignment"
+      :assignment="selectedAssignment"
+    />
   </section>
 </template>
 
 <script>
+import { assignmentService } from "@/services";
 export default {
   name: "Assignments",
   components: {
@@ -72,60 +93,42 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
+      selectedAssignment: null,
       fields: [
         { key: "id", label: "ID" },
-        { key: "destinarario", label: "Destinatário" },
+        { key: "recipient.name", label: "Destinatário" },
         { key: "entregador", label: "Entregador" },
-        { key: "cidade", label: "Cidade" },
-        { key: "estado", label: "Estado" },
+        { key: "recipient.street", label: "Cidade" },
+        { key: "recipient.state", label: "Estado" },
         { key: "status", label: "Status" },
         { key: "acoes", label: "Ações" }
       ],
-      items: [
-        {
-          id: "#01",
-          destinarario: "Ludwig van Beethoven",
-          entregador: "Macdonald",
-          cidade: "Rio do Sul",
-          estado: "Santa Catarina",
-          status: "RETIRADA"
-        },
-        {
-          id: "#02",
-          destinarario: "Dickerson",
-          entregador: "Gaspar Antunes",
-          cidade: "Rio do Sul",
-          estado: "Santa Catarina",
-          status: "ENTREGUE"
-        },
-        {
-          id: "#03",
-          destinarario: "Antonio Vivaldi",
-          entregador: "Macdonald",
-          cidade: "Rio do Sul",
-          estado: "Santa Catarina",
-          status: "ENTREGUE"
-        },
-        {
-          id: "#04",
-          destinarario: "Piotr Ilitch Tchaikovski",
-          entregador: "Rosetta Castro",
-          cidade: "Rio do Sul",
-          estado: "Santa Catarina",
-          status: "CANCELADA"
-        }
-      ]
+      assignments: []
     };
+  },
+  filters: {
+    statusText(value) {
+      if (!value) return "";
+      if (value === "delivered") return "ENTREGUE";
+      else if (value === "withdrawal") return "RETIRADA";
+      else if (value === "canceled") return "CANCELADO";
+      else if (value === "ongoing") return "EM PROCESSO";
+    }
   },
   methods: {
     badgeVariant(status) {
-      if (status === "ENTREGUE") return "success";
-      else if (status === "RETIRADA") return "info";
-      else if (status === "CANCELADA") return "danger";
+      if (status === "delivered") return "success";
+      else if (status === "withdrawal") return "info";
+      else if (status === "canceled") return "danger";
+      else if (status === "ongoing") return "primary";
     }
   },
-  mounted() {
-    // console.log(process.env.VUE_APP_BASE_URL);
+  async mounted() {
+    this.isLoading = true;
+    const assignments = await assignmentService.get();
+    this.assignments = assignments;
+    this.isLoading = false;
   }
 };
 </script>
