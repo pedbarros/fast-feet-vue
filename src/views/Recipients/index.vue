@@ -8,7 +8,11 @@
           <b-input-group-prepend is-text>
             <b-icon-search></b-icon-search>
           </b-input-group-prepend>
-          <b-form-input placeholder="Buscar por entregadores"></b-form-input>
+          <b-form-input
+            placeholder="Buscar por destinatários"
+            v-model="search"
+            debounce="1000"
+          ></b-form-input>
         </b-input-group>
       </div>
       <b-button
@@ -22,15 +26,26 @@
     </div>
 
     <div>
-      <b-table :responsive="true" :hover="true" :fields="fields" :items="items">
+      <b-table
+        :responsive="true"
+        :hover="true"
+        :fields="fields"
+        :items="recipients"
+      >
+        <template v-slot:cell(address)="data">
+          <span
+            >{{ data.item.street }}, {{ data.item.number }},
+            {{ data.item.city }} - {{ data.item.state }}</span
+          >
+        </template>
         <template v-slot:cell(acoes)>
           <b-dropdown id="dropdown-1" variant="primary">
             <b-dropdown-item>
-              <b-icon-pencil></b-icon-pencil> Editar</b-dropdown-item
-            >
-            <b-dropdown-item
-              ><b-icon-trash></b-icon-trash> Excluir</b-dropdown-item
-            >
+              <b-icon-pencil></b-icon-pencil> Editar
+            </b-dropdown-item>
+            <b-dropdown-item>
+              <b-icon-trash></b-icon-trash> Excluir
+            </b-dropdown-item>
           </b-dropdown>
         </template>
       </b-table>
@@ -44,34 +59,25 @@ export default {
   name: "Recipients",
   data() {
     return {
+      search: "",
       fields: [
         { key: "id", label: "ID" },
-        { key: "nome", label: "Nome" },
-        { key: "endereco", label: "Endereço" },
+        { key: "name", label: "Nome" },
+        { key: "address", label: "Endereço" },
         { key: "acoes", label: "Ações" }
       ],
-      items: [
-        {
-          id: "#01",
-          nome: "John Doe",
-          endereco: "Rua Beethoven, 1729, Diadema - São Paulo"
-        },
-        {
-          id: "#02",
-          nome: "Pedro Barros",
-          endereco: "Rua Beethoven, 1729, Diadema - São Paulo"
-        },
-        {
-          id: "#03",
-          nome: "Camila Soares",
-          endereco: "Rua Beethoven, 1729, Diadema - São Paulo"
-        }
-      ]
+      recipients: []
     };
+  },
+  watch: {
+    async search(value) {
+      const recipients = await recipientService.get([{ key: "name", value }]);
+      this.recipients = recipients;
+    }
   },
   async mounted() {
     const recipients = await recipientService.get();
-    console.log(recipients);
+    this.recipients = recipients;
   }
 };
 </script>
