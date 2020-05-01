@@ -42,12 +42,12 @@
             {{ data.item.city }} - {{ data.item.state }}</span
           >
         </template>
-        <template v-slot:cell(acoes)>
+        <template v-slot:cell(acoes)="data">
           <b-dropdown id="dropdown-1" variant="primary">
             <b-dropdown-item>
               <b-icon-pencil></b-icon-pencil> Editar
             </b-dropdown-item>
-            <b-dropdown-item>
+            <b-dropdown-item @click="deleteRecipient(data.item)">
               <b-icon-trash></b-icon-trash> Excluir
             </b-dropdown-item>
           </b-dropdown>
@@ -78,6 +78,20 @@ export default {
     async search(value) {
       const recipients = await recipientService.get([{ key: "name", value }]);
       this.recipients = recipients;
+    }
+  },
+  methods: {
+    async deleteRecipient(recipient) {
+      try {
+        let recipientIndex = this.recipients.findIndex(
+          item => item.id === recipient.id
+        );
+
+        await recipientService.delete(recipient.id);
+        this.recipients.splice(recipientIndex, 1);
+
+        // eslint-disable-next-line no-empty
+      } catch (error) {}
     }
   },
   async mounted() {

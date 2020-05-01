@@ -88,14 +88,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  if (
-    to.matched.some(route => route.meta.requiresAuth) &&
-    !tokenHelper.getToken()
-  ) {
-    next({ name: "Login", query: { name: to.name }, params: to.params });
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    if (tokenHelper.getToken()) {
+      if (Object.keys(store.state.auth.loggedUser).length === 0)
+        await store.dispatch("auth/me");
+      next();
+    } else {
+      next({ name: "Login", query: { name: to.name }, params: to.params });
+    }
   } else {
-    if (Object.keys(store.state.auth.loggedUser).length === 0)
-      await store.dispatch("auth/me");
     next();
   }
 });

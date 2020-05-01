@@ -7,5 +7,6 @@ export default {
       url += `&${p.key}=${p.value}`;
     });
     return axiosFF.get(url).then(res => res.data);
-  }
+  },
+  delete: id => axiosFF.delete(`assignments/${id}`)
 };

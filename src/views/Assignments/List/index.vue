@@ -70,7 +70,7 @@
             >
               <b-icon-pencil></b-icon-pencil> Editar</b-dropdown-item
             >
-            <b-dropdown-item
+            <b-dropdown-item @click="deleteAssignment(data.item)"
               ><b-icon-trash></b-icon-trash> Excluir</b-dropdown-item
             >
           </b-dropdown>
@@ -117,6 +117,18 @@ export default {
     }
   },
   methods: {
+    async deleteAssignment(assignment) {
+      try {
+        let assignmentIndex = this.assignments.findIndex(
+          item => item.id === assignment.id
+        );
+
+        await assignmentService.delete(assignment.id);
+        this.assignments.splice(assignmentIndex, 1);
+
+        // eslint-disable-next-line no-empty
+      } catch (error) {}
+    },
     badgeVariant(status) {
       if (status === "delivered") return "success";
       else if (status === "withdrawal") return "info";

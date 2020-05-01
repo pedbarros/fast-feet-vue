@@ -68,6 +68,7 @@
 
 <script>
 import { delivererService } from "@/services";
+import { toastHelper } from "@/helpers";
 export default {
   name: "Deliverers",
   data() {
@@ -84,17 +85,29 @@ export default {
       deliverers: []
     };
   },
+  methods: {
+    async getDelivers(params = []) {
+      this.isLoading = true;
+      try {
+        const deliverers = await delivererService.get(params);
+        this.deliverers = deliverers;
+      } catch (error) {
+        toastHelper.dangerMessage("Ocorreu um erro!", {
+          variant: "danger",
+          solid: true
+        });
+      } finally {
+        this.isLoading = false;
+      }
+    }
+  },
   watch: {
     async search(value) {
-      const deliverers = await delivererService.get([{ key: "name", value }]);
-      this.deliverers = deliverers;
+      this.getDelivers([{ key: "name", value }]);
     }
   },
   async mounted() {
-    this.isLoading = true;
-    const deliverers = await delivererService.get();
-    this.deliverers = deliverers;
-    this.isLoading = false;
+    this.getDelivers();
   }
 };
 </script>

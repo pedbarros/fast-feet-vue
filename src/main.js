@@ -6,9 +6,9 @@ import "pcds/dist/pedro-design-system.css";
 import Vue from "vue";
 import App from "./App.vue";
 import "./assets/scss/global.scss";
-import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import { toastHelper } from "@/helpers";
 
 Vue.use(pcds);
 Vue.use(BootstrapVue);
@@ -16,8 +16,10 @@ Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
-new Vue({
+const comp = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount("#app");
+
+toastHelper.configure(comp);

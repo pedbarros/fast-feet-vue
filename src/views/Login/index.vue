@@ -5,7 +5,7 @@
     <div class="card login-card align-self-center p-3 p-sm-4">
       <b-img-lazy class="my-3" fluid src="@/assets/images/logo-login.png" />
 
-      <b-form @submit="onLogin">
+      <b-form @submit="onLogin" @keyup.enter="onLogin">
         <b-form-group
           class="text-dark font-weight-bold"
           label="SEU E-MAIL"
@@ -45,7 +45,7 @@
 <script>
 import { mapMutations } from "vuex";
 import { authService } from "@/services";
-import { tokenHelper } from "@/helpers";
+import { tokenHelper, toastHelper } from "@/helpers";
 export default {
   name: "Login",
   data() {
@@ -60,12 +60,12 @@ export default {
     ...mapMutations("auth", ["SET_LOGGED_USER"]),
     async onLogin() {
       try {
-        const { data: user } = await authService.login(this.form);
-        tokenHelper.saveToken(user.token);
-        this.SET_LOGGED_USER(user);
+        const { data: response } = await authService.login(this.form);
+        tokenHelper.saveToken(response.token);
+        this.SET_LOGGED_USER(response.user);
         this.$router.push({ name: "ListAssignments" });
       } catch ({ response }) {
-        this.$bvToast.toast(response.data.error, {
+        toastHelper.dangerMessage(response.data.error, {
           variant: "danger",
           solid: true
         });
