@@ -21,15 +21,9 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
-          <!-- <b-nav-form>
-            <b-badge variant="success" style="font-size: 15px">{{
-              domainTarget
-            }}</b-badge>
-          </b-nav-form> -->
-
           <b-nav-item-dropdown right>
             <template v-slot:button-content>
-              <em>Admin FastFeet</em>
+              <em>{{ loggedUser.name }}</em>
             </template>
             <b-dropdown-item @click="logout">Sair do sistema</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -43,12 +37,16 @@
 // import axios from "axios";
 // import xml2js from "xml2js";
 import { tokenHelper } from "@/helpers";
+import { mapState } from "vuex";
 export default {
   inheritAttrs: false,
   data() {
     return {
       domainTarget: ""
     };
+  },
+  computed: {
+    ...mapState("auth", ["loggedUser"])
   },
   props: {
     logo: {

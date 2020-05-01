@@ -3,7 +3,6 @@ import VueRouter from "vue-router";
 import store from "@/store";
 import { tokenHelper } from "@/helpers";
 
-store.dispatch("auth/me");
 Vue.use(VueRouter);
 
 const routes = [
@@ -94,7 +93,11 @@ router.beforeEach(async (to, from, next) => {
     !tokenHelper.getToken()
   ) {
     next({ name: "Login", query: { name: to.name }, params: to.params });
-  } else next();
+  } else {
+    if (Object.keys(store.state.auth.loggedUser).length === 0)
+      await store.dispatch("auth/me");
+    next();
+  }
 });
 
 export default router;
