@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { recipientService } from "@/services";
 export default {
   name: "Recipients",
   data() {
@@ -67,6 +68,10 @@ export default {
         }
       ]
     };
+  },
+  async mounted() {
+    const recipients = await recipientService.get();
+    console.log(recipients);
   }
 };
 </script>

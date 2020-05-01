@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
 
+store.dispatch("auth/me");
 Vue.use(VueRouter);
 
 const routes = [
@@ -83,5 +85,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+// router.beforeEach(async (to, from, next) => {
+
+// })
 
 export default router;

@@ -123,6 +123,9 @@ export default {
       else if (status === "RETIRADA") return "info";
       else if (status === "CANCELADA") return "danger";
     }
+  },
+  mounted() {
+    // console.log(process.env.VUE_APP_BASE_URL);
   }
 };
 </script>

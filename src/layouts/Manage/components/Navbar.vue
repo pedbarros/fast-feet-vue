@@ -31,9 +31,7 @@
             <template v-slot:button-content>
               <em>Admin FastFeet</em>
             </template>
-            <b-dropdown-item :to="{ name: 'Login' }"
-              >Sair do sistema</b-dropdown-item
-            >
+            <b-dropdown-item @click="logout">Sair do sistema</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -44,6 +42,7 @@
 <script>
 // import axios from "axios";
 // import xml2js from "xml2js";
+import { tokenHelper } from "@/helpers";
 export default {
   inheritAttrs: false,
   data() {
@@ -59,6 +58,12 @@ export default {
     menu: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    logout() {
+      tokenHelper.removeToken();
+      this.$router.push({ name: "Login" });
     }
   },
   mounted() {

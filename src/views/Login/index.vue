@@ -43,19 +43,33 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { authService } from "@/services";
+import { tokenHelper } from "@/helpers";
 export default {
   name: "Login",
   data() {
     return {
       form: {
-        email: null,
-        password: null
+        email: "pedroedson12@hotmail.com",
+        password: "123456"
       }
     };
   },
   methods: {
-    onLogin() {
-      this.$router.push({ name: "ListAssignments" });
+    ...mapMutations("auth", ["SET_LOGGED_USER"]),
+    async onLogin() {
+      try {
+        const { data: user } = await authService.login(this.form);
+        tokenHelper.saveToken(user.token);
+        this.SET_LOGGED_USER(user);
+        this.$router.push({ name: "ListAssignments" });
+      } catch ({ response }) {
+        this.$bvToast.toast(response.data.error, {
+          variant: "danger",
+          solid: true
+        });
+      }
     }
   }
 };
