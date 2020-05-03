@@ -24,13 +24,11 @@
             @click="$refs.file.click()"
           >
             <template v-if="form.image">
-              <img
-                :src="
-                  imageIsBase64
-                    ? `data:image/jpeg;base64,${form.image}`
-                    : form.image
-                "
-                style="border-radius:10px;"
+              <b-img-lazy
+                height="150"
+                width="150"
+                class="rounded-circle"
+                :src="form.image"
               />
             </template>
             <template v-else>
@@ -85,38 +83,31 @@
 </template>
 
 <script>
+import { delivererService, fileService } from "@/services";
 export default {
   name: "RegisterDeliverers",
   data() {
     return {
       form: {
-        nome: null,
+        name: null,
         email: null,
         image: null
       }
     };
   },
-  computed: {
-    imageIsBase64() {
-      let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-      return base64regex.test(this.form.image);
-    }
-  },
   methods: {
-    onImageChange(e) {
-      let self = this;
-      let image = e.target.files || e.dataTransfer.files;
-      let reader = new FileReader();
-      reader.readAsBinaryString(image[0]);
+    async onImageChange(e) {
+      let file = e.target.files || e.dataTransfer.files;
+      let formData = new FormData();
 
-      reader.onload = function() {
-        self.form.image = btoa(reader.result);
-      };
-      reader.onerror = function() {
-        self.form.image = null;
-      };
+      formData.append("file", file[0]);
+      const image = await fileService.create(formData);
+      this.form.image = image.url;
+      this.$forceUpdate();
+      console.log(this.form.image);
     },
     saveDelivery() {
+      delivererService;
       alert(JSON.stringify(this.form));
     }
   },

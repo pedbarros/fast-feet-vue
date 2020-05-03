@@ -29,7 +29,7 @@
         >
           <b-form-input
             id="input-nome"
-            v-model="form.nome"
+            v-model="form.name"
             required
             placeholder="John Doe"
           ></b-form-input>
@@ -43,7 +43,7 @@
           >
             <b-form-input
               id="input-rua"
-              v-model="form.rua"
+              v-model="form.street"
               required
               placeholder="Rua Beethoven"
             ></b-form-input>
@@ -56,7 +56,7 @@
           >
             <b-form-input
               id="input-numero"
-              v-model="form.numero"
+              v-model="form.number"
               required
               placeholder="1729"
             ></b-form-input>
@@ -69,7 +69,7 @@
           >
             <b-form-input
               id="input-complemento"
-              v-model="form.complemento"
+              v-model="form.complement"
             ></b-form-input>
           </b-form-group>
         </div>
@@ -82,7 +82,7 @@
           >
             <b-form-input
               id="input-cidade"
-              v-model="form.cidade"
+              v-model="form.city"
               required
               placeholder="Diadema"
             ></b-form-input>
@@ -95,7 +95,7 @@
           >
             <b-form-input
               id="input-estado"
-              v-model="form.estado"
+              v-model="form.state"
               required
               placeholder="São Paulo"
             ></b-form-input>
@@ -121,19 +121,20 @@
 </template>
 
 <script>
-import { cepService } from "@/services";
+import { cepService, recipientService } from "@/services";
 export default {
   name: "RegisterRecipient",
   data() {
     return {
       form: {
-        nome: null,
-        rua: null,
-        numero: null,
-        complemento: null,
-        cidade: null,
-        estado: null,
-        cep: null
+        name: "Pedro Barros",
+        street: "Rua B",
+        number: 5935,
+        complement: "Sem complemento",
+        city: "Maceio",
+        state: "AL",
+        cep: "57083140",
+        status: true
       }
     };
   },
@@ -142,10 +143,10 @@ export default {
       handler(value) {
         cepService.getLocation(value).then(res => {
           const response = res.data;
-          this.form.rua = response.logradouro;
-          this.form.complemento = response.complemento;
-          this.form.cidade = response.localidade;
-          this.form.estado = response.uf;
+          this.form.street = response.logradouro;
+          this.form.complement = response.complemento;
+          this.form.city = response.localidade;
+          this.form.state = response.uf;
           this.form.cep = response.cep;
         });
       },
@@ -153,8 +154,9 @@ export default {
     }
   },
   methods: {
-    saveRecipient() {
-      alert(JSON.stringify(this.form));
+    async saveRecipient() {
+      const res = await recipientService.create(this.form);
+      if (res) this.$router.push({ name: "ListRecipients" });
     }
   }
 };

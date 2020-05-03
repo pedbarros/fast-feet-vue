@@ -2,15 +2,7 @@
   <section class="d-flex flex-column">
     <h4>Gerenciando encomendas</h4>
 
-    <div class="d-flex flex-column flex-sm-row justify-content-between my-4">
-      <div>
-        <b-input-group>
-          <b-input-group-prepend is-text>
-            <b-icon-search></b-icon-search>
-          </b-input-group-prepend>
-          <b-form-input placeholder="Buscar por encomendas"></b-form-input>
-        </b-input-group>
-      </div>
+    <div class="d-flex flex-column flex-sm-row justify-content-end my-4">
       <b-button
         class="mt-3 mt-sm-0"
         variant="primary"
@@ -133,7 +125,7 @@ export default {
       if (status === "delivered") return "success";
       else if (status === "withdrawal") return "info";
       else if (status === "canceled") return "danger";
-      else if (status === "ongoing") return "primary";
+      return "primary";
     }
   },
   async mounted() {

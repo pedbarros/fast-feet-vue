@@ -8,5 +8,6 @@ export default {
     });
     return axiosFF.get(url).then(res => res.data);
   },
+  create: payload => axiosFF.post("recipients", payload).then(res => res.data),
   delete: id => axiosFF.delete(`recipients/${id}`)
 };

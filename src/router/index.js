@@ -25,12 +25,12 @@ const routes = [
         component: () => import("@/views/EmptyRouterView.vue"),
         children: [
           {
-            path: "/",
+            path: "",
             name: "ListAssignments",
             component: () => import("@/views/Assignments/List")
           },
           {
-            path: "/register",
+            path: "register",
             name: "RegisterAssignment",
             component: () => import("@/views/Assignments/Register")
           }
@@ -48,12 +48,12 @@ const routes = [
         component: () => import("@/views/EmptyRouterView.vue"),
         children: [
           {
-            path: "/",
+            path: "",
             name: "ListDeliverers",
             component: () => import("@/views/Deliverers")
           },
           {
-            path: "/register",
+            path: "register",
             name: "RegisterDelivery",
             component: () => import("@/views/Deliverers/Register")
           }
@@ -66,12 +66,12 @@ const routes = [
         component: () => import("@/views/EmptyRouterView.vue"),
         children: [
           {
-            path: "/",
+            path: "",
             name: "ListRecipients",
             component: () => import("@/views/Recipients")
           },
           {
-            path: "/register",
+            path: "register",
             name: "RegisterRecipient",
             component: () => import("@/views/Recipients/Register")
           }

@@ -32,12 +32,11 @@
             label="Destinatário"
             label-for="input-destinatario"
           >
-            <b-form-input
-              id="input-destinatario"
-              v-model="form.destinatario"
-              required
-              placeholder="Ludwig van Beethoven"
-            ></b-form-input>
+            <b-form-select
+              v-model="form.recipient_id"
+              :options="optionsRecipients"
+            >
+            </b-form-select>
           </b-form-group>
 
           <b-form-group
@@ -45,12 +44,10 @@
             label="Entregador"
             label-for="input-numero"
           >
-            <b-form-select v-model="form.entregador" :options="optionsSelect">
-              <template v-slot:first>
-                <b-form-select-option :value="null" disabled
-                  >John Doe</b-form-select-option
-                >
-              </template>
+            <b-form-select
+              v-model="form.delivery_man_id"
+              :options="optionsDeliveryMan"
+            >
             </b-form-select>
           </b-form-group>
         </div>
@@ -62,7 +59,7 @@
         >
           <b-form-input
             id="input-produto"
-            v-model="form.produto"
+            v-model="form.product_name"
             required
             placeholder="Yamaha SX7"
           ></b-form-input>
@@ -73,26 +70,39 @@
 </template>
 
 <script>
+import {
+  recipientService,
+  delivererService,
+  assignmentService
+} from "@/services";
 export default {
   name: "RegisterAssignment",
   data() {
     return {
       form: {
-        destinatario: null,
-        entregador: null,
-        produto: null
+        recipient_id: 1,
+        delivery_man_id: 1,
+        product_name: null
       },
-      optionsSelect: [
-        { value: "pedro", text: "Pedro Barros" },
-        { value: "camila", text: "Camila Soares" },
-        { value: "rita", text: "Rita de Cássia" }
-      ]
+      optionsRecipients: [],
+      optionsDeliveryMan: []
     };
   },
   methods: {
-    saveAssignment() {
-      alert(JSON.stringify(this.form));
+    async saveAssignment() {
+      const res = await assignmentService.create(this.form);
+      if (res) this.$router.push({ name: "ListAssignments" });
     }
+  },
+  async mounted() {
+    this.optionsRecipients = (await recipientService.get()).map(item => ({
+      value: item.id,
+      text: item.name
+    }));
+    this.optionsDeliveryMan = (await delivererService.get()).map(item => ({
+      value: item.id,
+      text: item.name
+    }));
   }
 };
 </script>
