@@ -104,7 +104,6 @@ export default {
       const image = await fileService.create(formData);
       this.form.image = image.url;
       this.$forceUpdate();
-      console.log(this.form.image);
     },
     saveDelivery() {
       delivererService;
